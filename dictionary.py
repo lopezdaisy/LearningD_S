@@ -11,3 +11,9 @@ for key in d:
  #OR  
 for k,v in d.items():
     print("key:",k,"value",v)
+
+dict = {'dog':'has a tail and goes woof',
+        'cat':'says meow',
+        'mouse':'chased by cats'}
+word = input('Enter a word:')
+print('The defination is:',dict[word])
