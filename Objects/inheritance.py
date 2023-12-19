@@ -42,18 +42,18 @@ print(issubclass(car,vehicle))
 
 #Multiple inheritance
 class Father():
-    def gardening(self):
-        print("I enjoy gardening")
+    def skills(self):
+        print("programming, gardening")
 
 class Mother():
-    def cooking(self):
-        print("I love cooking")
+    def skills(self):
+        print("art,cooking")
 
 class Child(Father,Mother):
-    def sports(self):
-        print("I enjoy Sports")
+    def skills(self):
+        Father.skills(self)
+        Mother.skills(self)
+        print("Sports")
 
 c = Child()
-c.gardening()
-c.cooking()
-c.sports()                
+c.skills()                
