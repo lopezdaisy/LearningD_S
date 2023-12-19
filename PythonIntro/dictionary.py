@@ -201,7 +201,12 @@ start_zone_input = input("Enter the starting time zone (Eastern, Central, Mounta
 end_zone_input = input("Enter the ending time zone (Eastern, Central, Mountain, or Pacific): ")
 
 # Validate the time format using a regular expression
-if not datetime.strptime(time_input, "%I:%M%p", errors='coerce'):
+try:
+    datetime.strptime(time_input, "%I:%M%p")
+except ValueError:
+    print("Invalid time format. Please enter the time in the format like 3:48pm.")
+    exit()
+
     print("Invalid time format. Please enter the time in the format like 3:48pm.")
 else:
     # Validate time zone inputs
@@ -211,3 +216,16 @@ else:
     else:
         converted_time = convert_time(time_input, start_zone_input, end_zone_input)
         print(f"The converted time is: {converted_time}")
+
+print("\n")        
+
+#Dictionary comprehension
+cities = ["mumbai","new york","paris"]
+countries = ["india","usa","france"]
+z = zip(cities,countries)
+print(z)
+for _ in z:
+    print(_)
+
+d = {city:country  for city,country in zip(cities,countries)}
+print(d)    
