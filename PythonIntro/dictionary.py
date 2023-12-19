@@ -121,3 +121,93 @@ if matched_months_partial:
     print(f"\nMatching month(s) based on the first three letters: {', '.join(matched_months_partial)}")
 else:
     print("No matching month found.")    
+
+#Convert Roman numerals to ordinary numbers:
+def roman_to_int(roman):
+    roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    
+    result = 0
+    prev_value = 0
+    
+    for numeral in reversed(roman):
+        value = roman_dict[numeral]
+        if value < prev_value:
+            result -= value
+        else:
+            result += value
+        prev_value = value
+    
+    return result
+
+# Example usage:
+roman_numeral = input("Enter a Roman numeral: ")
+result = roman_to_int(roman_numeral.upper())
+print(f"The equivalent ordinary number is: {result}")
+
+#Convert ordinary numbers to Roman numerals:        
+def int_to_roman(number):
+    roman_dict = {1000: 'M', 900: 'CM', 500: 'D', 400: 'CD',
+                  100: 'C', 90: 'XC', 50: 'L', 40: 'XL',
+                  10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'}
+    
+    result = ''
+    
+    for value, numeral in roman_dict.items():
+        while number >= value:
+            result += numeral
+            number -= value
+    
+    return result
+
+# Example usage:
+ordinary_number = int(input("Enter an ordinary number: "))
+result = int_to_roman(ordinary_number)
+print(f"The equivalent Roman numeral is: {result}")
+
+'''Write a program that converts a time from one time zone to another. The user enters the time
+in the usual American way, such as 3:48pm or 11:26am. The first time zone the user enters
+is that of the original time and the second is the desired time zone. The possible time zones
+are Eastern, Central, Mountain, or Pacific.
+Time: 11:48pm
+Starting zone: Pacific
+Ending zone: Eastern
+2:48am
+'''
+
+from datetime import datetime, timedelta
+
+def convert_time(time_str, start_zone, end_zone):
+    # Define time zone offsets from Eastern time zone
+    time_zone_offsets = {'Eastern': 0, 'Central': -1, 'Mountain': -2, 'Pacific': -3}
+
+    # Convert time_str to a datetime object
+    time_format = "%I:%M%p"
+    time_object = datetime.strptime(time_str, time_format)
+
+    # Calculate the time difference in hours
+    time_difference = time_zone_offsets[end_zone] - time_zone_offsets[start_zone]
+
+    # Apply the time difference
+    converted_time = time_object + timedelta(hours=time_difference)
+
+    # Format the result
+    result_str = converted_time.strftime(time_format)
+
+    return result_str
+
+# Example usage:
+time_input = input("Enter the time (e.g., 11:48pm): ")
+start_zone_input = input("Enter the starting time zone (Eastern, Central, Mountain, or Pacific): ")
+end_zone_input = input("Enter the ending time zone (Eastern, Central, Mountain, or Pacific): ")
+
+# Validate the time format using a regular expression
+if not datetime.strptime(time_input, "%I:%M%p", errors='coerce'):
+    print("Invalid time format. Please enter the time in the format like 3:48pm.")
+else:
+    # Validate time zone inputs
+    valid_time_zones = ['Eastern', 'Central', 'Mountain', 'Pacific']
+    if start_zone_input not in valid_time_zones or end_zone_input not in valid_time_zones:
+        print("Invalid time zone. Please enter a valid time zone.")
+    else:
+        converted_time = convert_time(time_input, start_zone_input, end_zone_input)
+        print(f"The converted time is: {converted_time}")
