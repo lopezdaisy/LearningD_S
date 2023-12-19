@@ -10,6 +10,7 @@ class car(vehicle):
         self.has_root = True
 
     def specific_usage(self):
+        self.general_usage()
         print("Specific use: Commute to work \n vacation with family") 
 
 class Motocycle(vehicle):
@@ -20,6 +21,7 @@ class Motocycle(vehicle):
         self.has_roof = False
 
     def specific_use(self):
+        self.general_usage()
         print("Specific use: road trip \n racing")
 
 # Instantiate objects
@@ -31,7 +33,10 @@ car_object.general_usage()
 car_object.specific_usage()
 
 motorcycle_object.general_usage()
-motorcycle_object.specific_use()        
-        
+motorcycle_object.specific_use()    
 
+print("\n")
+print(isinstance(motorcycle_object,Motocycle))
+print("\n")       
+print(issubclass(car,vehicle))
 
